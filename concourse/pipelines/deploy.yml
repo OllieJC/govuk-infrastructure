@@ -200,11 +200,20 @@ resources:
       <<: *registry-source
       repository: router-api
 
-  - <<: *registry-image
-    name: signon-image
+  # - <<: *registry-image
+  #   name: signon-image
+  #   source:
+  #     <<: *registry-source
+  #     repository: signon
+
+  - name: signon-image
+    type: registry-image
+    icon: docker
     source:
-      <<: *registry-source
-      repository: signon
+      repository: govuk/signon
+      tag: bilbof_bootstrapping
+      username: ((docker_hub_username))
+      password: ((docker_hub_authtoken))
 
   - <<: *registry-image
     name: smokey-image
