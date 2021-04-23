@@ -900,14 +900,6 @@ jobs:
         app-image: signon-image
       output_mapping:
         task-definition-arn: task-definition-arn
-    - task: update-ecs-service
-      file: govuk-infrastructure/concourse/tasks/update-ecs-service.yml
-      input_mapping:
-        task-definition-arn: task-definition-arn
-      params:
-        ECS_SERVICE: signon
-        GOVUK_ENVIRONMENT: test
-        WORKSPACE: ((workspace))
     - task: run-bootstrap-task
       file: govuk-infrastructure/concourse/tasks/run-task.yml
       input_mapping:
@@ -918,6 +910,14 @@ jobs:
         # TODO: Move JSON config from signon to Terraform
         COMMAND: "bundle exec rake bootstap:all[((public_domain)),((workspace))]"
         VARIANT: web
+    - task: update-ecs-service
+      file: govuk-infrastructure/concourse/tasks/update-ecs-service.yml
+      input_mapping:
+        task-definition-arn: task-definition-arn
+      params:
+        ECS_SERVICE: signon
+        GOVUK_ENVIRONMENT: test
+        WORKSPACE: ((workspace))
     serial: true
     on_failure:
       <<: *notify-slack-failure
