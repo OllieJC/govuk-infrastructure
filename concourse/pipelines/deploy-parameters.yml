@@ -1,2 +1,3 @@
 workspace: bill-boot
 govuk_infrastructure_branch: bilbof/boot
+public_domain: bill-boot.test.govuk.digital

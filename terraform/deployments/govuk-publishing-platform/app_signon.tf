@@ -33,7 +33,7 @@ locals {
 module "signon" {
   registry                         = "govuk"
   image_name                       = "signon"
-  image_tag                        = "bilbof_boostrapping" # TODO: Remove once Signon PR #1617 is merged
+  image_tag                        = "bilbof_bootstrapping" # TODO: Remove once Signon PR #1617 is merged
   service_name                     = "signon"
   backend_virtual_service_names    = local.signon_defaults.backend_services
   mesh_name                        = aws_appmesh_mesh.govuk.id

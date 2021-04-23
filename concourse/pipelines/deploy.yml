@@ -890,6 +890,16 @@ jobs:
         app-image: signon-image
       output_mapping:
         task-definition-arn: task-definition-arn
+    - task: run-bootstrap-task
+      file: govuk-infrastructure/concourse/tasks/run-task.yml
+      input_mapping:
+        task-definition-arn: task-definition-arn
+      params:
+        APPLICATION: signon
+        # TODO: make bootstrap:all handle default workspace
+        # TODO: Move JSON config from signon to Terraform
+        COMMAND: "bundle exec rake bootstap:all[((public_domain)),((workspace))]"
+        VARIANT: web
     - task: update-ecs-service
       file: govuk-infrastructure/concourse/tasks/update-ecs-service.yml
       input_mapping:
