@@ -908,7 +908,7 @@ jobs:
         APPLICATION: signon
         # TODO: make bootstrap:all handle default workspace
         # TODO: Move JSON config from signon to Terraform
-        COMMAND: "bundle exec rake bootstap:all[((public_domain)),((workspace))]"
+        COMMAND: "bundle exec rake bootstrap:all[((public_domain)),((workspace))]"
         VARIANT: web
     - task: update-ecs-service
       file: govuk-infrastructure/concourse/tasks/update-ecs-service.yml
