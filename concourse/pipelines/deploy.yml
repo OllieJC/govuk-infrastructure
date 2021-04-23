@@ -892,6 +892,7 @@ jobs:
     - task: update-task-definition
       file: govuk-infrastructure/concourse/tasks/update-task-definition.yml
       params:
+        REGISTRY: govuk
         APPLICATION: signon
         GOVUK_ENVIRONMENT: test
         VARIANT: web
