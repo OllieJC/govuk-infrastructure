@@ -58,7 +58,7 @@ network_config=$(terraform output -json "$application" | jq -r ".$variant.networ
 
 echo "Fetching task_definition_arn from the govuk ECS cluster"
 cluster_name=$(terraform output -json "cluster_name" | jq -r)
-task_definition_arn=$(aws --region eu-west-1 ecs describe-services --cluster "${cluster_name}" --service "${application}-${variant}" | jq -r '.services[0].taskDefinition')
+task_definition_arn=$(aws --region eu-west-1 ecs describe-services --cluster "${cluster_name}" --service "${application}" | jq -r '.services[0].taskDefinition')
 
 echo "Starting task:
   cluster: $cluster
