@@ -272,10 +272,11 @@ resource "aws_iam_role_policy" "prometheus_task" {
       {
         "Effect" : "Allow",
         "Action" : [
-          "aps:RemoteWrite",
-          "aps:GetSeries",
           "aps:GetLabels",
-          "aps:GetMetricMetadata"
+          "aps:GetMetricMetadata",
+          "aps:GetSeries",
+          "aps:QueryMetrics",
+          "aps:RemoteWrite"
         ],
         "Resource" : "*"
       },
