@@ -67,6 +67,8 @@ locals {
     GF_AUTH_GITHUB_TEAM_IDS              = "3279243"
     GF_SERVER_DOMAIN                     = data.terraform_remote_state.monitoring.outputs.grafana_fqdn,
     GF_SERVER_ROOT_URL                   = "https://%(domain)s"
+    AWS_SDK_LOAD_CONFIG                  = "true"
+    GF_AUTH_SIGV4_AUTH_ENABLED           = "true"
   }
 
   secrets_from_arns = {
