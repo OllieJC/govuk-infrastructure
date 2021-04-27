@@ -15,12 +15,15 @@ set -eu
 
 root_dir=$(pwd)
 
+# Permits using input file or COMMAND param
+COMMAND=${COMMAND:-"$(cat "run-task-command/run-task-command")"}
+
 # Raise error if env vars not set
 : "${ASSUME_ROLE_ARN:?ASSUME_ROLE_ARN not set}"
 : "${AWS_REGION:?AWS_REGION not set}"
 : "${APPLICATION:?APPLICATION not set}"
-: "${COMMAND:?COMMAND not set}"
-: "${CLUSTER:?COMMAND not set}"
+: "${COMMAND:?COMMAND param is unset or run-task-command file is empty}"
+: "${CLUSTER:?CLUSTER not set}"
 : "${VARIANT:?VARIANT not set}"
 
 mkdir -p ~/.aws

@@ -11,3 +11,9 @@ resource "aws_security_group" "smokey" {
   vpc_id      = local.vpc_id
   description = "Smoke test runner"
 }
+
+resource "aws_security_group" "signon_lambda" {
+  name        = "signon-lambda-${terraform.workspace}"
+  vpc_id      = local.vpc_id
+  description = "Signon Lambda"
+}
