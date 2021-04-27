@@ -109,6 +109,11 @@ output "signon" {
   }
 }
 
+output "signon_bootstrap_command" {
+  # TODO: Make publishing_service_domain workspace-aware once OAuth applications done
+  value = "bundle exec rake bootstrap:all[${var.publishing_service_domain}${local.is_default_workspace ? "" : ",${terraform.workspace}"}]"
+}
+
 output "static" {
   value = {
     draft = {

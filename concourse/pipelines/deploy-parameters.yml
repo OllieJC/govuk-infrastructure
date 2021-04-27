@@ -1,2 +1,2 @@
-workspace: default
-govuk_infrastructure_branch: main
+workspace: bill-b
+govuk_infrastructure_branch: bilbof/workspace-bootstrapping-test

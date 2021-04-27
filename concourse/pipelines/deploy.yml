@@ -510,6 +510,8 @@ jobs:
     - in_parallel:
       - get: govuk-infrastructure
         resource: govuk-infrastructure-concourse-tasks
+        passed:
+        - deploy-signon
         trigger: true
       - get: app-terraform-outputs
         resource: frontend-terraform-outputs
@@ -553,6 +555,7 @@ jobs:
         params:
          ECS_SERVICE: draft-frontend
          WORKSPACE: ((workspace))
+        attempts: 2
       - task: update-live-ecs-service
         file: govuk-infrastructure/concourse/tasks/update-ecs-service.yml
         input_mapping:
@@ -560,6 +563,7 @@ jobs:
         params:
          ECS_SERVICE: frontend
          WORKSPACE: ((workspace))
+        attempts: 2
     serial: true
     on_failure: &notify-slack-failure
       put: deploy-slack-channel
@@ -597,6 +601,8 @@ jobs:
     - in_parallel:
       - get: govuk-infrastructure
         resource: govuk-infrastructure-concourse-tasks
+        passed:
+        - deploy-signon
         trigger: true
       - get: app-terraform-outputs
         resource: publisher-terraform-outputs
@@ -642,6 +648,7 @@ jobs:
         APPLICATION: publisher
         COMMAND: "bundle exec rails db:migrate"
         VARIANT: web
+      attempts: 3
     - in_parallel:
       - task: update-web-ecs-service
         file: govuk-infrastructure/concourse/tasks/update-ecs-service.yml
@@ -650,6 +657,7 @@ jobs:
         params:
           ECS_SERVICE: publisher-web
           WORKSPACE: ((workspace))
+        attempts: 2
       - task: update-worker-ecs-service
         file: govuk-infrastructure/concourse/tasks/update-ecs-service.yml
         input_mapping:
@@ -657,6 +665,7 @@ jobs:
         params:
           ECS_SERVICE: publisher-worker
           WORKSPACE: ((workspace))
+        attempts: 2
     serial: true
     on_failure:
       <<: *notify-slack-failure
@@ -666,6 +675,8 @@ jobs:
     - in_parallel:
       - get: govuk-infrastructure
         resource: govuk-infrastructure-concourse-tasks
+        passed:
+        - deploy-signon
         trigger: true
       - get: app-terraform-outputs
         resource: publishing-api-terraform-outputs
@@ -703,6 +714,7 @@ jobs:
         APPLICATION: publishing-api
         COMMAND: "bundle exec rails db:migrate"
         VARIANT: web
+      attempts: 2
     - in_parallel:
       - task: update-web-ecs-service
         file: govuk-infrastructure/concourse/tasks/update-ecs-service.yml
@@ -711,13 +723,15 @@ jobs:
           WORKSPACE: ((workspace))
         input_mapping:
           task-definition-arn: web-task-definition-arn
+        attempts: 2
       - task: update-worker-ecs-service
         file: govuk-infrastructure/concourse/tasks/update-ecs-service.yml
         params:
           ECS_SERVICE: publishing-api-worker
           WORKSPACE: ((workspace))
         input_mapping:
-            task-definition-arn: worker-task-definition-arn
+          task-definition-arn: worker-task-definition-arn
+        attempts: 2
     serial: true
     on_failure:
       <<: *notify-slack-failure
@@ -727,6 +741,8 @@ jobs:
     - in_parallel:
       - get: govuk-infrastructure
         resource: govuk-infrastructure-concourse-tasks
+        passed:
+        - deploy-signon
         trigger: true
       - get: app-terraform-outputs
         resource: content-store-terraform-outputs
@@ -762,6 +778,7 @@ jobs:
         params:
           ECS_SERVICE: content-store
           WORKSPACE: ((workspace))
+        attempts: 2
       - task: update-draft-ecs-service
         file: govuk-infrastructure/concourse/tasks/update-ecs-service.yml
         input_mapping:
@@ -769,6 +786,7 @@ jobs:
         params:
           ECS_SERVICE: draft-content-store
           WORKSPACE: ((workspace))
+        attempts: 2
     serial: true
     on_failure:
       <<: *notify-slack-failure
@@ -813,6 +831,7 @@ jobs:
         params:
           ECS_SERVICE: draft-router
           WORKSPACE: ((workspace))
+        attempts: 2
       - task: update-live-ecs-service
         file: govuk-infrastructure/concourse/tasks/update-ecs-service.yml
         input_mapping:
@@ -820,6 +839,7 @@ jobs:
         params:
           ECS_SERVICE: router
           WORKSPACE: ((workspace))
+        attempts: 2
     serial: true
     on_failure:
       <<: *notify-slack-failure
@@ -829,6 +849,8 @@ jobs:
     - in_parallel:
       - get: govuk-infrastructure
         resource: govuk-infrastructure-concourse-tasks
+        passed:
+        - deploy-signon
         trigger: true
       - get: app-terraform-outputs
         resource: router-api-terraform-outputs
@@ -864,6 +886,7 @@ jobs:
         params:
           ECS_SERVICE: draft-router-api
           WORKSPACE: ((workspace))
+        attempts: 2
       - task: update-live-ecs-service
         file: govuk-infrastructure/concourse/tasks/update-ecs-service.yml
         input_mapping:
@@ -871,6 +894,7 @@ jobs:
         params:
           ECS_SERVICE: router-api
           WORKSPACE: ((workspace))
+        attempts: 2
     serial: true
     on_failure:
       <<: *notify-slack-failure
@@ -907,6 +931,18 @@ jobs:
           app-image: signon-image
         output_mapping:
           task-definition-arn: task-definition-arn
+    - task: make-bootstrap-command
+      file: govuk-infrastructure/concourse/tasks/make-signon-bootstrap-command.yml
+      params:
+        WORKSPACE: ((workspace))
+    - task: create-signon-resources
+      file: govuk-infrastructure/concourse/tasks/run-task.yml
+      input_mapping:
+        task-definition-arn: task-definition-arn
+        run-task-command: run-task-command
+      params:
+        APPLICATION: signon
+        VARIANT: web
     - task: update-ecs-service
       file: govuk-infrastructure/concourse/tasks/update-ecs-service.yml
       input_mapping:
@@ -915,6 +951,7 @@ jobs:
         ECS_SERVICE: signon
         GOVUK_ENVIRONMENT: test
         WORKSPACE: ((workspace))
+      attempts: 2
     serial: true
     on_failure:
       <<: *notify-slack-failure
@@ -992,6 +1029,7 @@ jobs:
         params:
           ECS_SERVICE: draft-static
           WORKSPACE: ((workspace))
+        attempts: 2
       - task: update-live-ecs-service
         file: govuk-infrastructure/concourse/tasks/update-ecs-service.yml
         input_mapping:
@@ -999,6 +1037,7 @@ jobs:
         params:
           ECS_SERVICE: static
           WORKSPACE: ((workspace))
+        attempts: 2
     serial: true
     on_failure:
       <<: *notify-slack-failure

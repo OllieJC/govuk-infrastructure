@@ -13,18 +13,24 @@ resource "aws_lambda_function" "bearer_token" {
 
   runtime = "ruby2.7"
 
+  vpc_config {
+    subnet_ids         = var.private_subnets
+    security_group_ids = [var.signon_lambda_security_group_id]
+  }
+
   environment {
     variables = {
       API_USER_EMAIL     = var.api_user_email
       APPLICATION_NAME   = var.app_name
       PERMISSIONS        = "signin"
       ADMIN_PASSWORD_KEY = var.signon_admin_password_arn
-      SIGNON_API_URL     = "https://${var.signon_host}/api/v1"
+      SIGNON_API_URL     = "http://${var.signon_host}/api/v1"
     }
   }
 
   depends_on = [
     aws_iam_role_policy_attachment.lambda_logs,
+    aws_iam_role_policy_attachment.vpc,
     aws_cloudwatch_log_group.bearer_token,
   ]
 }

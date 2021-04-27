@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-ENV['SIGNON_API_URL'] = 'https://signon.example.org'
+ENV['SIGNON_API_URL'] = 'http://signon.example.org'
 ENV['AWS_ACCESS_KEY_ID'] = "stub"
 ENV['AWS_SECRET_ACCESS_KEY'] = "stub"
 ENV['AWS_REGION'] = "stub"
@@ -14,7 +14,7 @@ RSpec.describe SignonClient do
   let(:permissions) { 'signin,publish' }
 
   let(:client) do
-    described_class.new(api_user: api_user, auth_token: auth_token)
+    described_class.new(api_user: api_user, auth_token: auth_token, max_retries: 0)
   end
 
   describe '#create_bearer_token' do
