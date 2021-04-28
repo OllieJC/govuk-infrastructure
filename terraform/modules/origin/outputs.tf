@@ -1,9 +1,5 @@
-output "origin_alb_listerner_arn" {
-  value = aws_lb_listener.origin.arn
-}
-
-output "origin_alb_x_custom_header_secret" {
-  value = random_password.origin_alb_x_custom_header_secret.result
+output "origin_target_group_arn" {
+  value = aws_lb_target_group.origin.arn
 }
 
 output "security_group_id" {
