@@ -78,6 +78,12 @@ variable "container_healthcheck_command" {
   default     = ["/bin/bash", "-c", "curl -f http://localhost:80/healthcheck/live || exit 1"]
 }
 
+variable "container_healthcheck_start_period" {
+  type        = number
+  description = "Number of seconds for grace period before taking into account failed healthchecks for containers"
+  default     = 0
+}
+
 variable "health_check_grace_period_seconds" {
   description = "Meaningful only if load_balancers is non-empty. See healthCheckGracePeriodSeconds in https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service_definition_parameters.html"
   type        = number
