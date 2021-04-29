@@ -261,6 +261,16 @@ resource "aws_security_group_rule" "publisher_to_any_any" {
   security_group_id = module.publisher_web.security_group_id
 }
 
+resource "aws_security_group_rule" "publisher_worker_to_any_any" {
+  description       = "Publisher sends requests to anywhere over any protocol"
+  type              = "egress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = -1
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = module.publisher_worker.security_group_id
+}
+
 #
 # Publishing API
 #
