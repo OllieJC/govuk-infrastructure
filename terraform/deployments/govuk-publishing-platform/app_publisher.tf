@@ -115,22 +115,23 @@ module "publisher_worker" {
     local.govuk_management_access_security_group,
     aws_security_group.mesh_ecs_service.id
   ]
-  environment_variables            = local.publisher_defaults.environment_variables
-  mesh_name                        = aws_appmesh_mesh.govuk.id
-  subnets                          = local.private_subnets
-  service_discovery_namespace_id   = aws_service_discovery_private_dns_namespace.govuk_publishing_platform.id
-  service_discovery_namespace_name = aws_service_discovery_private_dns_namespace.govuk_publishing_platform.name
-  source                           = "../../modules/app"
-  secrets_from_arns                = local.publisher_defaults.secrets_from_arns
-  splunk_url_secret_arn            = local.defaults.splunk_url_secret_arn
-  splunk_token_secret_arn          = local.defaults.splunk_token_secret_arn
-  splunk_index                     = local.defaults.splunk_index
-  splunk_sourcetype                = local.defaults.splunk_sourcetype
-  aws_region                       = data.aws_region.current.name
-  cpu                              = local.publisher_defaults.cpu
-  memory                           = local.publisher_defaults.memory
-  task_role_arn                    = aws_iam_role.task.arn
-  execution_role_arn               = aws_iam_role.execution.arn
-  vpc_id                           = local.vpc_id
-  desired_count                    = var.publisher_worker_desired_count
+  environment_variables              = local.publisher_defaults.environment_variables
+  mesh_name                          = aws_appmesh_mesh.govuk.id
+  subnets                            = local.private_subnets
+  service_discovery_namespace_id     = aws_service_discovery_private_dns_namespace.govuk_publishing_platform.id
+  service_discovery_namespace_name   = aws_service_discovery_private_dns_namespace.govuk_publishing_platform.name
+  source                             = "../../modules/app"
+  secrets_from_arns                  = local.publisher_defaults.secrets_from_arns
+  splunk_url_secret_arn              = local.defaults.splunk_url_secret_arn
+  splunk_token_secret_arn            = local.defaults.splunk_token_secret_arn
+  splunk_index                       = local.defaults.splunk_index
+  splunk_sourcetype                  = local.defaults.splunk_sourcetype
+  aws_region                         = data.aws_region.current.name
+  cpu                                = local.publisher_defaults.cpu
+  memory                             = local.publisher_defaults.memory
+  task_role_arn                      = aws_iam_role.task.arn
+  execution_role_arn                 = aws_iam_role.execution.arn
+  vpc_id                             = local.vpc_id
+  desired_count                      = var.publisher_worker_desired_count
+  container_healthcheck_start_period = 120
 }
