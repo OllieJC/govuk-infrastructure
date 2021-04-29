@@ -2,7 +2,7 @@ locals {
   publisher_app_name = "publisher"
 
   publisher_defaults = {
-    cpu    = 1024  # TODO parameterize this
+    cpu    = 1024 # TODO parameterize this
     memory = 2048 # TODO parameterize this
 
     backend_services = flatten([
