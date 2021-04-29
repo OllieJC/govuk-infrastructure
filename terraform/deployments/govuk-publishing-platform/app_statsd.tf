@@ -30,6 +30,7 @@ module "statsd" {
   subnets                          = local.private_subnets
   task_role_arn                    = aws_iam_role.task.arn
   vpc_id                           = local.vpc_id
+  container_healthcheck_command    = ["/bin/sh", "-c", "RESULT=$(echo \"health\" | nc 127.0.0.1 8126); if [ \"$${RESULT}\" != \"health: up\" ]; then exit 1; fi;"]
   splunk_url_secret_arn            = local.defaults.splunk_url_secret_arn
   splunk_token_secret_arn          = local.defaults.splunk_token_secret_arn
   splunk_index                     = local.defaults.splunk_index
