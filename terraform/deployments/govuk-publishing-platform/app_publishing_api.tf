@@ -1,7 +1,7 @@
 locals {
   publishing_api_defaults = {
-    cpu    = 512  # TODO parameterize this
-    memory = 1024 # TODO parameterize this
+    cpu    = 1024  # TODO parameterize this
+    memory = 2048 # TODO parameterize this
 
     backend_services = flatten([
       local.defaults.virtual_service_backends,
@@ -31,7 +31,7 @@ locals {
         RABBITMQ_USER                        = "publishing_api"
         RABBITMQ_VHOST                       = "/"
         REDIS_URL                            = module.shared_redis_cluster.uri
-        UNICORN_WORKER_PROCESSES             = "8"
+        UNICORN_WORKER_PROCESSES             = "6"
       }
     )
 
