@@ -83,6 +83,6 @@ variable "user" {
 
 variable "healthcheck_start_period" {
   type        = number
-  Description = "Number of seconds for grace period before taking into account failed healthchecks"
+  description = "Number of seconds for grace period before taking into account failed healthchecks"
   default     = 0
 }
