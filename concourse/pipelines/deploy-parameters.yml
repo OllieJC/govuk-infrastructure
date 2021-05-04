@@ -1,2 +1,2 @@
-workspace: bill-a
-govuk_infrastructure_branch: bilbof/signon-bearer-tokens
+workspace: bill-b
+govuk_infrastructure_branch: bilbof/signon-bearer-tokens-b

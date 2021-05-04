@@ -47,9 +47,9 @@ echo "Waiting for $ECS_SERVICE ECS service to reach steady state..."
 
 ecs-cli logs --region "$AWS_REGION" --cluster "$CLUSTER" --task-id "$task_id" --container-name "app" --follow | head -n 5000 &
 
-aws ecs wait services-stable \
-  --cluster "$CLUSTER" \
-  --services "$ECS_SERVICE" \
-  --region "$AWS_REGION"
+# aws ecs wait services-stable \
+#   --cluster "$CLUSTER" \
+#   --services "$ECS_SERVICE" \
+#   --region "$AWS_REGION"
 
 echo "Finished updating $ECS_SERVICE to task definition $new_task_definition_arn."
