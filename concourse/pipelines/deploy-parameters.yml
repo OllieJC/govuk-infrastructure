@@ -1,2 +1,2 @@
-workspace: default
-govuk_infrastructure_branch: main
+workspace: bill
+govuk_infrastructure_branch: bilbof/retry-wait-stable-b
