@@ -337,6 +337,7 @@ jobs:
           AWS_REGION: eu-west-1
           ASSUME_ROLE_ARN: 'arn:aws:iam::430354129336:role/govuk-concourse-deployer'
           WORKSPACE: ((workspace))
+          GOVUK_ENVIRONMENT: ((govuk_environment))
         platform: linux
         image_resource:
           type: docker-image
@@ -372,7 +373,7 @@ jobs:
     - file: govuk-infrastructure/concourse/pipelines/deploy.yml
       set_pipeline: self
       var_files:
-        - govuk-infrastructure/concourse/pipelines/deploy-parameters.yml
+        - govuk-infrastructure/concourse/parameters/((govuk_environment))/deploy-parameters.yml
 
   - name: run-terraform
     serial: true
