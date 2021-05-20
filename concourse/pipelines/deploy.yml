@@ -746,7 +746,7 @@ jobs:
         params:
           APPLICATION: publisher
           VARIANT: web
-          GOVUK_ENVIRONMENT: test
+          GOVUK_ENVIRONMENT: ((govuk_environment))
       - task: update-worker-task-definition
         file: govuk-infrastructure/concourse/tasks/update-task-definition.yml
         input_mapping:
@@ -756,7 +756,7 @@ jobs:
         params:
           APPLICATION: publisher
           VARIANT: worker
-          GOVUK_ENVIRONMENT: test
+          GOVUK_ENVIRONMENT: ((govuk_environment))
     - task: run-db-migrations
       file: govuk-infrastructure/concourse/tasks/run-task.yml
       input_mapping:
@@ -852,7 +852,7 @@ jobs:
         params:
           APPLICATION: publishing-api
           VARIANT: web
-          GOVUK_ENVIRONMENT: test
+          GOVUK_ENVIRONMENT: ((govuk_environment))
       - task: update-worker-task-definition
         file: govuk-infrastructure/concourse/tasks/update-task-definition.yml
         input_mapping:
@@ -862,7 +862,7 @@ jobs:
         params:
           APPLICATION: publishing-api
           VARIANT: worker
-          GOVUK_ENVIRONMENT: test
+          GOVUK_ENVIRONMENT: ((govuk_environment))
     - task: run-db-migrations
       file: govuk-infrastructure/concourse/tasks/run-task.yml
       input_mapping:
@@ -1138,7 +1138,7 @@ jobs:
         file: govuk-infrastructure/concourse/tasks/update-task-definition.yml
         params:
           APPLICATION: signon
-          GOVUK_ENVIRONMENT: test
+          GOVUK_ENVIRONMENT: ((govuk_environment))
           VARIANT: web
         input_mapping:
           app-image: signon-image
@@ -1148,7 +1148,7 @@ jobs:
     - task: make-bootstrap-command
       file: govuk-infrastructure/concourse/tasks/make-signon-bootstrap-command.yml
       params:
-        GOVUK_ENVIRONMENT: test
+        GOVUK_ENVIRONMENT: ((govuk_environment))
         WORKSPACE: ((workspace))
     - task: create-signon-resources
       file: govuk-infrastructure/concourse/tasks/run-task.yml
@@ -1164,7 +1164,7 @@ jobs:
         task-definition-arn: task-definition-arn
       params:
         ECS_SERVICE: signon
-        GOVUK_ENVIRONMENT: test
+        GOVUK_ENVIRONMENT: ((govuk_environment))
         WORKSPACE: ((workspace))
     - <<: *await-deploy-complete
       task: await-deploy-complete
@@ -1222,7 +1222,7 @@ jobs:
         app-image: smokey-image
       params:
         APPLICATION: smokey
-        GOVUK_ENVIRONMENT: test
+        GOVUK_ENVIRONMENT: ((govuk_environment))
         VARIANT: default
     serial: true
     on_failure:

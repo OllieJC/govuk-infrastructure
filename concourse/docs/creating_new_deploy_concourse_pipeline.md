@@ -24,7 +24,7 @@ changes is to create a new `Deploy` Concourse pipeline which will create a new
    fly -t <target_name> sp \
        -p <pipeline_name> \
        -c <path_to_deploy_file> \
-       -l <path_to_deploy_parameters_file>
+       -l <path_to_deploy_parameters_file_for_environment>
    ```
 
 1. Browse to `https://cd.gds-reliability.engineering/teams/govuk-tools/pipelines/<pipeline_name>`

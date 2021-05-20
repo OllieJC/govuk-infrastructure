@@ -1,3 +1,4 @@
 workspace: default
 govuk_infrastructure_branch: main
 disable_slack_channel_alerts: false
+govuk_environment: integration
