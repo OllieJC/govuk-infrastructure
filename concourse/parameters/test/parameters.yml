@@ -1,5 +1,5 @@
 workspace: towers
 govuk_infrastructure_branch: wip/towers
 disable_slack_channel_alerts: true
-background_image: https://longwallpapers.com/Desktop-Wallpaper/Doge%20Wallpaper%20High%20Quality.jpg
 skip_db_migrations: true
+background_image: "https://media.wallpaper123.net/uploads/media/source_1/image/doge-wallpaper-hd-5e3fdb5ca57e7.jpg"
