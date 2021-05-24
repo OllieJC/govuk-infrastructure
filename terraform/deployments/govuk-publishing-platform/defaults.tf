@@ -8,10 +8,12 @@ locals {
   public_entry_url = local.is_default_workspace && var.enable_cdn ? "https://www.${local.workspace_external_domain}" : "https://${module.www_frontends_origin.fqdn}"
   defaults = {
     environment_variables = {
+      GOVUK_CLUSTER             = local.govuk_cluster_name
       DEFAULT_TTL               = 1800,
       GOVUK_APP_DOMAIN          = local.mesh_domain,
       GOVUK_APP_DOMAIN_EXTERNAL = local.workspace_external_domain,
       GOVUK_APP_TYPE            = "rack",
+      GOVUK_ENVIRONMENT         = var.govuk_enviroment
       GOVUK_STATSD_HOST         = "statsd.${local.mesh_domain}"
       GOVUK_STATSD_PROTOCOL     = "tcp"
       GOVUK_WEBSITE_ROOT        = local.public_entry_url

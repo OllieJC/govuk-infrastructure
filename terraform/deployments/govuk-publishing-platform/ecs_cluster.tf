@@ -1,6 +1,10 @@
+locals {
+  govuk_cluster_name = "govuk-${local.workspace}"
+}
+
 # All services running on GOV.UK run in this single cluster.
 resource "aws_ecs_cluster" "cluster" {
-  name               = "govuk-${local.workspace}"
+  name               = local.govuk_cluster_name
   capacity_providers = ["FARGATE", "FARGATE_SPOT"]
 
   default_capacity_provider_strategy {
