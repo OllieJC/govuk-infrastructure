@@ -40,6 +40,8 @@ module "publisher_to_publishing_api_bearer_token" {
   additional_tags                 = local.additional_tags
   api_user_email                  = local.signon_api_user.publisher
   app_name                        = local.signon_app.publishing_api.name
+  client_app                      = "publisher"
+  deploy_event_bucket             = aws_s3_bucket.deploy_event_bucket.id
   environment                     = var.govuk_environment
   name                            = "pub_to_pub_api"
   private_subnets                 = local.private_subnets
@@ -55,6 +57,8 @@ module "publishing_api_to_content_store_bearer_token" {
   additional_tags                 = local.additional_tags
   api_user_email                  = local.signon_api_user.publishing_api
   app_name                        = local.signon_app.content_store.name
+  client_app                      = "publishing-api"
+  deploy_event_bucket             = aws_s3_bucket.deploy_event_bucket.id
   environment                     = var.govuk_environment
   name                            = "pub_api_to_cs"
   private_subnets                 = local.private_subnets
@@ -71,6 +75,8 @@ module "publishing_api_to_draft_content_store_bearer_token" {
   additional_tags                 = local.additional_tags
   api_user_email                  = local.signon_api_user.publishing_api
   app_name                        = local.signon_app.draft_content_store.name
+  client_app                      = "publishing-api"
+  deploy_event_bucket             = aws_s3_bucket.deploy_event_bucket.id
   environment                     = var.govuk_environment
   name                            = "pub_api_to_dcs"
   private_subnets                 = local.private_subnets
@@ -87,6 +93,8 @@ module "publishing_api_to_router_api_bearer_token" {
   additional_tags                 = local.additional_tags
   api_user_email                  = local.signon_api_user.publishing_api
   app_name                        = local.signon_app.router_api.name
+  client_app                      = "publishing-api"
+  deploy_event_bucket             = aws_s3_bucket.deploy_event_bucket.id
   environment                     = var.govuk_environment
   name                            = "pub_api_to_router_api"
   private_subnets                 = local.private_subnets
@@ -102,6 +110,8 @@ module "frontend_to_publishing_api_bearer_token" {
   additional_tags                 = local.additional_tags
   api_user_email                  = local.signon_api_user.frontend
   app_name                        = local.signon_app.publishing_api.name
+  client_app                      = "frontend"
+  deploy_event_bucket             = aws_s3_bucket.deploy_event_bucket.id
   environment                     = var.govuk_environment
   name                            = "frontend_to_pub_api"
   private_subnets                 = local.private_subnets
@@ -117,6 +127,8 @@ module "content_store_to_publishing_api_bearer_token" {
   additional_tags                 = local.additional_tags
   api_user_email                  = local.signon_api_user.content_store
   app_name                        = local.signon_app.publishing_api.name
+  client_app                      = "content-store"
+  deploy_event_bucket             = aws_s3_bucket.deploy_event_bucket.id
   environment                     = var.govuk_environment
   name                            = "cs_to_pub_api"
   private_subnets                 = local.private_subnets
@@ -132,6 +144,8 @@ module "draft_content_store_to_publishing_api_bearer_token" {
   additional_tags                 = local.additional_tags
   api_user_email                  = local.signon_api_user.draft_content_store
   app_name                        = local.signon_app.publishing_api.name
+  client_app                      = "content-store"
+  deploy_event_bucket             = aws_s3_bucket.deploy_event_bucket.id
   environment                     = var.govuk_environment
   name                            = "dcs_to_pub_api"
   private_subnets                 = local.private_subnets
@@ -147,6 +161,8 @@ module "content_store_to_router_api_bearer_token" {
   additional_tags                 = local.additional_tags
   api_user_email                  = local.signon_api_user.content_store
   app_name                        = local.signon_app.router_api.name
+  client_app                      = "content-store"
+  deploy_event_bucket             = aws_s3_bucket.deploy_event_bucket.id
   environment                     = var.govuk_environment
   name                            = "cs_to_router_api"
   private_subnets                 = local.private_subnets
@@ -162,6 +178,8 @@ module "draft_content_store_to_draft_router_api_bearer_token" {
   additional_tags                 = local.additional_tags
   api_user_email                  = local.signon_api_user.draft_content_store
   app_name                        = local.signon_app.draft_router_api.name
+  client_app                      = "content-store"
+  deploy_event_bucket             = aws_s3_bucket.deploy_event_bucket.id
   environment                     = var.govuk_environment
   name                            = "dcs_to_draft_router_api"
   private_subnets                 = local.private_subnets

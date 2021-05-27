@@ -108,6 +108,17 @@ resources:
       versioned_file: ((workspace))/frontend.json
       initial_version: "0"
 
+  - name: frontend-deploy-event-trigger
+    type: s3
+    icon: file
+    source:
+      bucket: deploy-event
+      region_name: eu-west-1
+      private: true
+      skip_download: true
+      regexp: ((workspace))/frontend/(*.).json
+      initial_path: ((workspace))/frontend/0.json
+
   - name: publisher-terraform-outputs
     type: s3
     icon: file
@@ -614,6 +625,9 @@ jobs:
         trigger: true
       - get: frontend-image
         trigger: true
+      - try:
+          get: frontend-deploy-event-trigger
+          trigger: true
     - in_parallel:
       - task: bootstrap-secrets
         file: govuk-infrastructure/concourse/tasks/bootstrap-app-secrets.yml

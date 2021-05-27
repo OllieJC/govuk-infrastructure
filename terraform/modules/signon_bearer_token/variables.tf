@@ -11,6 +11,16 @@ variable "app_name" {
   description = "Workspace-aware name for a Signon OAuth application resource, e.g. Publishing API"
 }
 
+variable "client_app" {
+  type        = string
+  description = "Hyphenated lowercase app name without variant E.g. content-store, publishing-api"
+}
+
+variable "deploy_event_bucket" {
+  type        = string
+  description = "S3 bucket ARN used to trigger app redeployment following secret rotation"
+}
+
 variable "name" {
   type = string
 }
