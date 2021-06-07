@@ -87,5 +87,7 @@ output "proxy_properties" {
     # From the user guide: "This is the ingress port for the Envoy proxy
     # container. Set this value to 15000"
     ProxyIngressPort = 15000
+
+    EgressIgnoredPorts = [27017] # https://trello.com/c/6yn0REmI/368
   }
 }
